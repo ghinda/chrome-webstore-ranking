@@ -6799,7 +6799,7 @@ jQuery.extend({
 
 	// Get and set the style property on a DOM Node
 	style: function( elem, name, value, extra ) {
-		// Don't set css on text and comment nodes
+		// Don't set styles on text and comment nodes
 		if ( !elem || elem.nodeType === 3 || elem.nodeType === 8 || !elem.style ) {
 			return;
 		}
@@ -7091,7 +7091,7 @@ function getWidthOrHeight( elem, name, extra ) {
 		val = parseFloat( val ) || 0;
 	}
 
-	// use the active box-sizing model to add/subtract irrelevant css
+	// use the active box-sizing model to add/subtract irrelevant styles
 	return ( val +
 		augmentWidthOrHeight(
 			elem,
@@ -11888,7 +11888,7 @@ window.Modernizr = (function( window, document, undefined ) {
     }
 
     /**
-     * setCss applies given css to the Modernizr DOM node.
+     * setCss applies given styles to the Modernizr DOM node.
      */
     function setCss( str ) {
         mStyle.cssText = str;
@@ -12620,7 +12620,7 @@ window.Modernizr = (function( window, document, undefined ) {
       /** Not all elements can be cloned in IE **/
       var saveClones = /^(?:a|b|code|div|fieldset|h1|h2|h3|h4|h5|h6|i|label|li|ol|p|q|span|strong|style|table|tbody|td|th|tr|ul)$/i;
 
-      /** Detect whether the browser supports default html5 css */
+      /** Detect whether the browser supports default html5 styles */
       var supportsHtml5Styles;
 
       /** Name of the expando, to work with multiple documents or to re-shiv one document */
@@ -12947,7 +12947,7 @@ window.Modernizr = (function( window, document, undefined ) {
 
 
     /*>>teststyles*/
-    // Modernizr.testStyles() allows you to add custom css to the document and test an element afterwards
+    // Modernizr.testStyles() allows you to add custom styles to the document and test an element afterwards
     // Modernizr.testStyles('#modernizr { position:absolute }', function(elem, rule){ ... })
     Modernizr.testStyles    = injectElementWithStyles;
     /*>>teststyles*/
@@ -33646,7 +33646,13 @@ nv.models.stackedAreaChart = function() {
 
 nv.version = "1.7.1";
 })();
-$(document).ready(function () {
+/* Chrome Web Store Rank
+ */
+
+(function() {
+  
+  var plotChart = function() {
+    
     nv.addGraph(function () {
         var chart = nv.models.lineChart()
             .x(function(d){
@@ -33679,4 +33685,20 @@ $(document).ready(function () {
 
         return chart;
     });
-});
+    
+  };
+  
+  // TODO use pjax to load the chart
+  // and toggle the hide-show chart class when submitting
+  
+  var init = function() {
+    
+    $(document).ready(plotChart);
+    
+  };
+  
+  init();
+  
+}());
+
+

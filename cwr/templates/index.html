@@ -4,47 +4,120 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Chrome Web Store Ranking</title>
+    <title>
+        Chrome Web Store Ranking
+    </title>
     <link href="/static/css/main.css" rel="stylesheet">
 </head>
-<body>
-<div class="container">
-    <h1>Chrome Webstore Ranking</h1>
-    {% if data.created %}
-    <p class="alert alert-success">Added to the queue. Refresh this page in about 5 minutes or so and you'll get some data.</p>
-    {% endif %}
-    <form action="{{ url_for('index') }}" method="post" class="form-inline">
-        <div class="form-group">
-            <label for="eid">Extension ID</label>
-            <input type="text" id="eid" value="{{data.eid}}" class="form-control" name="eid" placeholder="Ex: lmcngpkjkplipamgflhioabnhnopeabf"/>
-        </div>
-         <div class="form-group">
-            <label for="search_term">Search Term</label>
-            <input type="text" id="search_term" value="{{data.search_term}}" class="form-control" name="search_term" placeholder="Ex: gmail"/>
-        </div>
-        <div class="form-group">
-            <select name="category" id="category" class="form-control">
-                <option value="extensions"{% if data.category == 'extensions' %} selected="selected"{% endif %}>Extensions</option>
-                <option value="apps"{% if data.category == 'apps' %} selected="selected"{% endif %}>Apps</option>
-                <option value="themes"{% if data.category == 'themes' %} selected="selected"{% endif %}>Themes</option>
-            </select>
-        </div>
+<body {% if data and data.eid %} class="chart--show"{% endif %}>
 
-        <button class="btn btn-default">Get ranking</button>
-    </form>
-
-    {% if data.chart_data %}
-    <script>
-        var CHART_DATA = {{data.chart_data|safe}};
-    </script>
-    <div id="chart">
-        <svg></svg>
+    <div class="search-container">
+    
+        <form action="{{ url_for('index') }}" method="post" class="search-form">
+        
+            <h1 class="container-title">
+                <a href="/">
+                    Chrome Webstore Ranking
+                </a>
+            </h1>
+            
+            {% if data.created %}
+                <p class="alert alert-success">
+                    Added to the queue. Refresh this page in about 5 minutes or so and you'll get some data.
+                </p>
+            {% endif %}
+            
+            {% if error %}
+                <p class="alert alert-danger">
+                    {{ error }}
+                </p>
+            {% endif %}
+        
+            <div class="form-group">
+                <label for="eid">
+                    Extension ID
+                </label>
+                <input type="text" id="eid" value="{{ data.eid }}" class="form-control" name="eid" placeholder="lmcngpkjkplipamgflhioabnhnopeabf" required/>
+            </div>
+            
+            <div class="row">
+            
+                <div class="col-md-6">
+                
+                    <div class="form-group">
+                        <label for="search_term">
+                            Search Term
+                        </label>
+                        <input type="text" id="search_term" value="{{data.search_term}}" class="form-control" name="search_term" placeholder="gmail" required/>
+                    </div>
+                
+                </div>
+                
+                <div class="col-md-6">
+                
+                    <div class="form-group">
+                        
+                        <label for="category">
+                            Type
+                        </label>
+                        
+                        <select name="category" id="category" class="form-control">
+                            <option value="extensions"{% if data.category == 'extensions' %} selected="selected"{% endif %}>
+                                Extension
+                            </option>
+                            <option value="apps"{% if data.category == 'apps' %} selected="selected"{% endif %}>
+                                App
+                            </option>
+                            <option value="themes"{% if data.category == 'themes' %} selected="selected"{% endif %}>
+                                Theme
+                            </option>
+                        </select>
+                        
+                    </div>
+                
+                </div>
+            
+            </div>
+            
+            <button type="submit" class="btn btn-default btn-block">
+                Get ranking
+            </button>
+        </form>
+        
+    
     </div>
-    {% else %}
-    <p>Fetching stuff from Chrome Store... Refresh in a few minutes.</p>
-    {% endif %}
-</div>
-<!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="/static/js/_index.js"></script>
+
+    <div class="chart-container">
+    
+        <h2 class="container-title">
+            Addon
+        </h2>
+        
+        <!--
+            TODO get the extension icon and name
+        -->
+    
+        <script>
+            var CHART_DATA = {};
+        </script>
+    
+        {% if data.chart_data %}
+            <script>
+                CHART_DATA = {{ data.chart_data|safe }};
+            </script>
+            
+            <div id="chart">
+                <svg></svg>
+            </div>
+        {% else %}
+            <p>
+                Fetching stuff from Chrome Store... Refresh in a few minutes.
+            </p>
+        {% endif %}
+    
+    </div>
+    
+    <script src="/static/js/_index.js"></script>
+    
 </body>
 </html>

@@ -1,4 +1,10 @@
-$(document).ready(function () {
+/* Chrome Web Store Rank
+ */
+
+(function() {
+  
+  var plotChart = function() {
+    
     nv.addGraph(function () {
         var chart = nv.models.lineChart()
             .x(function(d){
@@ -31,4 +37,20 @@ $(document).ready(function () {
 
         return chart;
     });
-});
+    
+  };
+  
+  // TODO use pjax to load the chart
+  // and toggle the hide-show chart class when submitting
+  
+  var init = function() {
+    
+    $(document).ready(plotChart);
+    
+  };
+  
+  init();
+  
+}());
+
+

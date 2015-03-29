@@ -58,4 +58,4 @@ node_modules
 bower_components
 
 celerybeat-schedule
-
+.kateconfig

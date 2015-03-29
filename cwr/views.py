@@ -67,7 +67,7 @@ def index():
                 'created': created
             }))
         else:
-            return render_template('index.html', error="All terms are required")
+            return render_template('index.html', error="All terms are required", data={})
 
     ext = None
     data = []
