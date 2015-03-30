@@ -8,6 +8,8 @@
         Chrome Web Store Ranking
     </title>
     <link href="/static/css/main.css" rel="stylesheet">
+    <link href="/static/bower_components/font-awesome/css/font-awesome.css" rel="stylesheet">
+    <link href='http://fonts.googleapis.com/css?family=Roboto:300,700,400' rel='stylesheet' type='text/css'>
 </head>
 <body {% if data and data.eid %} class="chart--show"{% endif %}>
 
@@ -17,9 +19,16 @@
         
             <h1 class="container-title">
                 <a href="/">
-                    Chrome Webstore Ranking
+                    Chrome Web Store
+                    <strong>
+                        Ranking
+                    </strong>
                 </a>
             </h1>
+            
+            <p class="description-main">
+                See how your Chrome extension is ranking over time, in different locations.
+            </p>
             
             {% if data.created %}
                 <p class="alert alert-success">
@@ -79,23 +88,41 @@
             
             </div>
             
-            <button type="submit" class="btn btn-default btn-block">
+            <button type="submit" class="btn btn-primary btn-block">
+                <i class="fa fa-spin fa-cog"></i>
                 Get ranking
             </button>
         </form>
+        
+        <ul class="search-container-footer list-inline">
+            <li>
+                <a href="#aboutModal" data-toggle="modal" data-target="#aboutModal">
+                    About
+                </a>
+            </li>
+            <li>
+                <a href="mailto:#">
+                    Contact
+                </a>
+            </li>
+        </ul>
         
     
     </div>
 
     <div class="chart-container">
     
-        <h2 class="container-title">
-            Addon
-        </h2>
-        
         <!--
             TODO get the extension icon and name
         -->
+        
+        <h2 class="container-title">
+            <a href="https://chrome.google.com/webstore/detail/{{ data.eid }}" target="_blank">
+                <img src="https://lh3.googleusercontent.com/qVYs72Nrt7bo5SFaTH2Cg5NFzBoJhI_7IU_ywXc_H37yXhfMAWJwKvJwtIvT5JIWlaXqGCU9Lns=s50-h50-e365-rw" class="icon-addon">
+            
+                Google Tasks Offline (Unofficial)
+            </a>
+        </h2>
     
         <script>
             var CHART_DATA = {};
@@ -110,11 +137,25 @@
                 <svg></svg>
             </div>
         {% else %}
-            <p>
+            <div class="alert alert-info">
                 Fetching stuff from Chrome Store... Refresh in a few minutes.
-            </p>
+            </div>
         {% endif %}
     
+    </div>
+    
+    <div class="modal fade" id="aboutModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">About</h4>
+                </div>
+                <div class="modal-body">
+                    <p>About&hellip;</p>
+                </div>
+            </div>
+        </div>
     </div>
     
     <script src="/static/js/_index.js"></script>

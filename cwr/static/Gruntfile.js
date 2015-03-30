@@ -64,23 +64,11 @@ module.exports = function (grunt) {
         },
         // Put files not handled in other tasks here
         copy: {
-            development: {
-                files: [{
-                    expand: true,
-                    flatten: true,
-                    dot: true,
-                    cwd: 'bower_components/font-awesome/fonts/',
-                    dest: 'css/fonts',
-                    src: [
-                        '*'
-                    ]
-                }]
-            }
         }
     });
 
     // Default task(s).
     grunt.registerTask('js', ['jshint', 'concat']);
     grunt.registerTask('css', ['less']);
-    grunt.registerTask('default', ['js', 'css', 'copy', 'watch']);
+    grunt.registerTask('default', ['js', 'css', 'watch']);
 };
