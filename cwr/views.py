@@ -5,6 +5,9 @@ from datetime import datetime
 
 from flask import render_template, request, redirect, url_for
 
+import requests
+from lxml import html
+
 from cwr.app import app, db
 from cwr.models import Extension, ExtensionQuery, LOCALES, COUNTRIES
 
@@ -34,6 +37,7 @@ def index():
     search_term = request.args.get('search_term', request.form.get('search_term'))
     category = request.args.get('category', request.form.get('category'))
     created = request.args.get('created', 0)
+        
 
     if request.method == 'POST':
         if eid and search_term and category:
@@ -69,6 +73,25 @@ def index():
         else:
             return render_template('index.html', error="All terms are required", data={})
 
+
+    # get the extension icon and name,
+    # by scraping the extension page.
+    # TODO should be probably done better,
+    # caching the title and icon path in the db.
+    
+    extTitle = ''
+    extIconUrl = ''
+        
+    if eid:
+        
+        cwrUrl = 'https://chrome.google.com/webstore/detail/'
+        page = requests.get(cwrUrl + eid);
+        
+        tree = html.fromstring(page.text)
+        extTitle = tree.xpath('//h1[@class="g-f-x"]/text()')[0]
+        extIconUrl = tree.xpath('//img[@class="g-f-t"]/@src')[0]
+        
+
     ext = None
     data = []
     if eid:
@@ -96,5 +119,7 @@ def index():
         'eid': eid or '',
         'search_term': search_term or '',
         'category': category or '',
-        'chart_data': json.dumps(data)
+        'chart_data': json.dumps(data),
+        'title': extTitle,
+        'icon': extIconUrl
     })

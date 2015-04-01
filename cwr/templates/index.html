@@ -101,7 +101,7 @@
                 </a>
             </li>
             <li>
-                <a href="mailto:#">
+                <a href="https://github.com/xarg" target="_blank">
                     Contact
                 </a>
             </li>
@@ -111,16 +111,12 @@
     </div>
 
     <div class="chart-container">
-    
-        <!--
-            TODO get the extension icon and name
-        -->
         
         <h2 class="container-title">
             <a href="https://chrome.google.com/webstore/detail/{{ data.eid }}" target="_blank">
-                <img src="https://lh3.googleusercontent.com/qVYs72Nrt7bo5SFaTH2Cg5NFzBoJhI_7IU_ywXc_H37yXhfMAWJwKvJwtIvT5JIWlaXqGCU9Lns=s50-h50-e365-rw" class="icon-addon">
+                <img src="{{ data.icon }}" class="icon-addon">
             
-                Google Tasks Offline (Unofficial)
+                {{ data.title }}
             </a>
         </h2>
     
@@ -152,7 +148,14 @@
                     <h4 class="modal-title">About</h4>
                 </div>
                 <div class="modal-body">
-                    <p>About&hellip;</p>
+                    <p>
+                        Built by
+                        <a href="https://github.com/xarg" target="_blank">
+                            @xarg</a>
+                        with a little help from
+                        <a href="https://github.com/ghinda">
+                            @ghinda</a>.
+                    </p>
                 </div>
             </div>
         </div>
